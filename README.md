@@ -1,3 +1,5 @@
+![Superman](superman-batman-small.png)
+
 # Ace Resources: A Search Engine
 
 An app to search various data sources.
