@@ -1,0 +1,116 @@
+<md-card flex-sm="95" flex-gt-sm="90" flex-gt-md="50" ng-show="!showWindow">
+  <md-card-content>
+    <h2>{{systemSettings.workplace}}</h2>
+    <p>{{systemSettings.tagline}}</p>
+    <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
+      <md-input-container>
+        <label>Password</label>
+        <input name="password" ng-model="collectionPassword" type="password" required>
+        <div ng-messages="loginForm.password.$error" ng-show="loginForm.bio.$dirty">
+          <div ng-message="required">This is required!</div>
+          <div ng-message="md-maxlength">That's too long!</div>
+          <div ng-message="minlength">That's too short!</div>
+        </div>
+      </md-input-container>
+
+      <md-button class="md-primary md-raised">
+        Login
+      </md-button>
+    </form>
+    <!-- <md-button ng-click="forgotPwd($event)">Forgot Password?</md-button> -->
+  </md-card-content>
+</md-card>
+<!-- 
+<div layout="column" flex>
+  asd
+</div> -->
+<div layout="column" flex ng-if="showWindow">
+  <div layout="row">
+    <div flex="70" flex-lg="70" flex-md="70" flex-sm="100">
+      <div class="os-icons">
+      
+        <app-icon 
+          title="How-To Guides" 
+          icon="/images/icons/material/help18.svg" 
+          class="color-1"
+          link-type="HowToGuide"
+          template-controller="IconCtrl"
+          template-path="/modules/applets/views/intro.html">
+        </app-icon>
+
+        <app-icon 
+          title="Documents"
+          icon="/images/icons/material/folder215.svg"
+          class="color-2"
+          link-type="Document"
+          template-controller="IconCtrl"
+          template-path="/modules/applets/views/intro.html">
+        </app-icon>
+
+        <app-icon 
+          title="Videos"
+          icon="/images/icons/material/youtube35.svg" 
+          class="color-3"
+          link-type="Video"
+          template-controller="IconCtrl"
+          template-path="/modules/applets/views/intro.html">
+        </app-icon>
+
+        <app-icon 
+          title="Safety Info"
+          icon="/images/icons/material/man460.svg" 
+          class="color-10"
+          link-type="SafetyInfo"
+          template-controller="IconCtrl"
+          template-path="/modules/applets/views/intro.html">
+        </app-icon>
+
+        <app-icon 
+          title="{{globalUrl}}"
+          icon-type="browser"
+          class="os-icon-hidden"
+          url="{{globalUrl}}">
+        </app-icon>
+
+        <app-icon 
+          ng-if="appData.password"
+          title="Logout"
+          icon="/images/icons/material/stop46.svg" 
+          class="color-1"
+          ng-click="logout()">
+        </app-icon>
+  <!-- <md-button>Logout</md-button> -->
+
+        <!-- <app-icon 
+          title="Introduction"
+          icon="/images/icons/material/good4.svg" 
+          class="color-5 os-window-offset"
+          template-controller="IntroCtrl"
+          template-path="/modules/applets/views/intro.html">
+        </app-icon>
+
+        <app-icon 
+          title="Critical Info"
+          icon="/images/icons/material/report.svg" 
+          class="color-4 os-window-offset"
+          template-controller="CriticalCtrl"
+          template-path="/modules/applets/views/intro.html">
+        </app-icon> -->
+        
+        <img src="/images/logo-main.png" class="logo" hide-sm hide-xs>
+      </div>
+    </div>
+    <div flex="30" flex-gt-md="30" flex-md="30" flex-sm="0" hide-sm hide-xs style="position: relative;">
+      <div ng-include="'/modules/applets/views/descriptions.html'"></div>
+    </div>
+  </div>
+  <div layout="row" hide-md hide-lg hide-gt-sm>
+    <div ng-include="'/modules/applets/views/descriptions.html'"></div>
+  </div>
+  <img src="/images/logo-main.png" class="logo" hide-gt-sm>
+  <!-- <add-icon>
+    <md-button class="md-fab" aria-label="Add Icon">
+        <md-icon md-svg-src="/images/icons/material/square181.svg"></md-icon>
+    </md-button>
+  </add-icon> -->
+</div>
