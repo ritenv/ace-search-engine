@@ -88,6 +88,14 @@ module.exports = function(System) {
         return json.unhappy(err, res);
       }
 
+      if (response && response.hits) {
+        response.hits.hits.map(function(rec) {
+          if (rec._source) {
+            delete rec._source.attachment;
+          }
+        });
+      }
+
       return json.happy({query: params, data: response, perPage: System.config.settings.perPage}, res);
     })
   };
