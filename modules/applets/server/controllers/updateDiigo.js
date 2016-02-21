@@ -20,7 +20,7 @@ module.exports = function(System) {
       .header('Authorization', 'Basic ' + encoded)
       .end(function(response) {
         var links = response.body;
-        if (links.length && start < maxLimit) {
+        if (links && links.length && start < maxLimit) {
           var elastic = System.plugins.elastic;
           links.map(function(link) {
             link.id = link.url; //ensure unique

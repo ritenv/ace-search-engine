@@ -17,13 +17,24 @@ angular.module('delicious.applets')
     'appExternals',
     function($scope, $route, $rootScope, $routeParams, $timeout, appApplets, appAuth, appToast, appStorage, appLocation, appWebSocket, appUsersSearch, appExternals) {
       var params = $scope.params = $routeParams;
+      $scope.maxPage = 1;
+
       var searchParams = {
         type: params.type || '',
         q: '',
         fields: params.fields ? params.fields.split(',') : []
       };
 
+      $scope.nextPage = function() {
+        $rootScope.searchCriteria.page = Math.min($rootScope.searchCriteria.page + 1, $scope.maxPage);
+      }
+
+      $scope.prevPage = function() {
+        $rootScope.searchCriteria.page = Math.max($rootScope.searchCriteria.page - 1, 1);
+      }
+
       $rootScope.searchCriteria.type = searchParams.type;
+      $rootScope.searchCriteria.page = $routeParams.page || 1;
 
       $scope.data = {};
       var selectedFields = $scope.data.fields = {
@@ -120,16 +131,23 @@ angular.module('delicious.applets')
         }
 
         if (newVal.keyword) {
+          $scope.isLoading = true;
           appApplets.single.get({
             resourceType: newVal.type,
             fields: fieldsCsv,
-            q: newVal.keyword
+            q: newVal.keyword,
+            page: $rootScope.searchCriteria.page
           }).$promise.then(function(res) {
+            $scope.isLoading = false;
             searchParams.fields = typeof searchParams.fields !== 'string' ? searchParams.fields.join(',') : searchParams.fields;
+            searchParams.page = $rootScope.searchCriteria.page;
             appLocation.search(searchParams);
             if (res.res.data) {
               var records = res.res.data.hits.hits;
+              var total = res.res.data.hits.total;
               $scope.records = records;
+              $scope.total = total;
+              $scope.maxPage = Math.ceil(total / res.res.perPage);
             }
           });
         }

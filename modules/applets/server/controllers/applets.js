@@ -78,12 +78,17 @@ module.exports = function(System) {
     }
     // }
 
+    var page = parseInt(req.query.page);
+    page = page || 1;
+    params.size = System.config.settings.perPage;
+    params.from = (parseInt(page)-1) * params.size;
+
     elastic.search(params, function(err, response) {
       if (err) {
         return json.unhappy(err, res);
       }
 
-      return json.happy({query: params, data: response}, res);
+      return json.happy({query: params, data: response, perPage: System.config.settings.perPage}, res);
     })
   };
 

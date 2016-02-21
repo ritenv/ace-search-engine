@@ -70,8 +70,9 @@
       <div class="main-view-content">
         <div class="heading-container">
           <h1 ng-if="data.keyword && records.length" class="md-display-0 white">
-            {{records.length}} result(s) for <strong>{{data.keyword}}</strong>
+            Showing {{records.length}} result(s) for <strong>{{data.keyword}}</strong>
              <small>in {{displaySelected.join(', ')}}</small>
+             <small class="mute">(page {{searchCriteria.page}} of {{maxPage}})</small>
           </h1>
           <h1 ng-if="!data.keyword" class="md-display-0 white">A really simple search engine.</h1>
         </div>
@@ -81,14 +82,19 @@
   <div class="relative default-ng-transition-vertical zIndex" layout="row" layout-align="center" layout-fill ng-if="data.keyword">
     <md-card class="main-view-content">
       <md-card-content class="md-subhead">
-        <div class="md-padding">
+        <div class="md-padding no-padding-top">
           <div class="link-items">
-            <div ng-if="!records.length">
+            <div ng-if="!records.length && !isLoading">
               <p><strong>No results found.</strong></p>
               <p>You may want to refine your search criteria.</p>
               <span class="fa fa-meh-o large-meh"></span>
             </div>
-            <div ng-repeat="record in records" class="link-item" layout="row">
+            <div class="pagination margin-bottom" layout="row" ng-if="records.length && !isLoading">
+              <a class="md-button" href="#" ng-click="prevPage()">&laquo; Prev</a>
+              <div flex></div>
+              <a class="md-button" href="#" ng-click="nextPage()">Next &raquo;</a>
+            </div>
+            <div ng-repeat="record in records" class="link-item" layout="row" ng-if="!isLoading">
               <div layout="column">
                 <span class="fa type-icon" ng-class="{'fa-book': record._type === 'books', 'fa-file-text-o': record._type === 'articles', 'fa-share-square-o': record._type === 'links'}"></span>
               </div>
@@ -106,6 +112,14 @@
                 </a>
               </div>
 
+            </div>
+            <div class="link-item" layout="row" ng-if="isLoading">
+              <p>Loading...</p>
+            </div>
+            <div class="pagination" layout="row" ng-if="records.length && !isLoading">
+              <a class="md-button" href="#" ng-click="prevPage()">&laquo; Prev</a>
+              <div flex></div>
+              <a class="md-button" href="#" ng-click="nextPage()">Next &raquo;</a>
             </div>
           </div>
         </md-content>

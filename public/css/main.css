@@ -890,3 +890,9 @@ md-dialog .md-subheader.md-default-theme {
 
 h1 small {
   font-size: 14px; }
+
+.no-padding-top {
+  padding-top: 0; }
+
+.margin-bottom {
+  margin-bottom: 24px; }
