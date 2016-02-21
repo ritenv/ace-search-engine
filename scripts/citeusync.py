@@ -126,5 +126,5 @@ class CiteULikeReader(object):
     
 cureader = CiteULikeReader(cUser, cPass, localDir)
 cureader.getJson()
-# cureader.getBibText()
+cureader.getBibText()
 cureader.downloadPDFS()
