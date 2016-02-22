@@ -87,7 +87,7 @@ angular.module('delicious.applets')
             returnString = record._source.url;
             break;
         }
-        return returnString.substr(0, 200);
+        return returnString;
       }
 
       $scope.$watch('data.keyword', function(newVal, oldVal) {
