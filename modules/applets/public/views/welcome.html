@@ -103,7 +103,7 @@
                   <a target="_blank" ng-href="{{getLink(record)}}">{{record._source.title}}</a>
                 </p>
                 <p>
-                  {{getDescription(record)}}
+                  {{cleanText(getDescription(record))}}
                 </p>
               </div>
               <div layout="column" ng-if="record._source.cover">

@@ -157,18 +157,24 @@ angular.module('delicious.applets')
         }
       }, true);
 
+      $scope.cleanText = cleanText;
+
       function cleanTitles(records) {
         _.map(records, function(record) {
-          var title = record._source.title;
-          if (title.substr(0,1) === '{') {
-            title = title.substr(1);
-          }
-
-          if (title.substr(title.length - 1) === '}') {
-            title = title.substr(0, title.length - 1);
-          }
-          record._source.title = title;
+          record._source.title = cleanText(record._source.title);
         });
+      }
+
+      function cleanText(str) {
+        if (str.substr(0,1) === '{') {
+          str = str.substr(1);
+        }
+
+        if (str.substr(str.length - 1) === '}') {
+          str = str.substr(0, str.length - 1);
+        }
+
+        return str;
       }
     }
   ])
