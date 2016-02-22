@@ -83,6 +83,9 @@ angular.module('delicious.applets')
           case 'books':
             returnString = appExternals.libraryThing(record._source.isbn);
             break;
+          case 'links':
+            returnString = record._source.url;
+            break;
         }
         return returnString.substr(0, 200);
       }
