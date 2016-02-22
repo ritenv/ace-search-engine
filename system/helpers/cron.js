@@ -27,11 +27,9 @@ module.exports = function(System) {
 
           isStarted = true;
 
-          self.updateDiigo();
           self.runScripts();
 
           setInterval(function() {
-            self.updateDiigo();
             self.runScripts();
           }, System.config.crons.runEvery * 60 * 1000);
         },
@@ -43,6 +41,7 @@ module.exports = function(System) {
               runScript('cul2es.py')
                 .then(function(results) {
                   console.log('CiteULike is done!');
+                  self.updateDiigo();
                 });
             });
 
