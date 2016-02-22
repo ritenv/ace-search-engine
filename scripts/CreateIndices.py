@@ -46,11 +46,11 @@ es.indices.put_mapping(
     body={
         'links': {
             'properties': {
-                'id': {'type': 'integer'},
+                'id': {'type': 'string'},
                 'title': {'type': 'string'},
                 'comments': {'type': 'string'},
                 'delicious': {'type': 'string'},
-                'URL': {'type': 'string'},
+                'url': {'type': 'string'},
                 'tags': {'type': 'string'},
                 'created': {'type': 'date'}
             }
