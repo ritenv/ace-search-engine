@@ -35,6 +35,7 @@ module.exports = function(System) {
         },
 
         runScripts: function() {
+          var self = this;
           var runScript = this.runScript;          
           runScript('citeusync.py')
             .then(function(results) {

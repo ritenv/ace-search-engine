@@ -147,6 +147,7 @@ angular.module('delicious.applets')
             appLocation.search(searchParams);
             if (res.res.data) {
               var records = res.res.data.hits.hits;
+              cleanTitles(records);
               var total = res.res.data.hits.total;
               $scope.records = records;
               $scope.total = total;
@@ -155,6 +156,20 @@ angular.module('delicious.applets')
           });
         }
       }, true);
+
+      function cleanTitles(records) {
+        _.map(records, function(record) {
+          var title = record._source.title;
+          if (title.substr(0,1) === '{') {
+            title = title.substr(1);
+          }
+
+          if (title.substr(title.length - 1) === '}') {
+            title = title.substr(0, title.length - 1);
+          }
+          record._source.title = title;
+        });
+      }
     }
   ])
   .controller('IntroCtrl', [
